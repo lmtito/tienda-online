@@ -18,12 +18,13 @@ class ProductController extends Controller
 
     public function create()
     {
-        return 'This is the form to create a product';
+        return view('products.create');
     }
 
     public function store()
     {
-        //
+        $product = Product::create(request()->all());
+        return $product;
     }
 
     public function show($product)
@@ -37,16 +38,22 @@ class ProductController extends Controller
 
     public function edit($product)
     {
-        return "Showing the form to edit the product with id {$product}";
+        return view('products.edit')->with([
+            'product' => Product::findOrFail($product),
+        ]);
     }
 
     public function update($product)
     {
-        //
+        $product = Product::findOrFail($product);
+        $product->update(request()->all());
+        return $product;
     }
 
     public function destroy($product)
     {
-        //
+        $product = Product::findOrFail($product);
+        $product->delete();
+        return $product;
     }
 }
