@@ -22,7 +22,8 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'status' => $this->faker->randomElement(['pending', 'payed', 'shipped']),
+            // 'customer_id' no needed
         ];
     }
 }
