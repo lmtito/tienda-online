@@ -27,7 +27,7 @@ class Product extends Model
 
     public function carts()
     {
-        return $this->morphedByToMany(Cart::class, 'productable')->withPivot('quantity');
+        return $this->morphedByMany(Cart::class, 'productable')->withPivot('quantity');
     }
 
     public function orders()
