@@ -33,6 +33,10 @@ Route::resource('products', 'App\Http\Controllers\ProductController');
 
 //Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+Route::resource('products.carts', 'App\Http\Controllers\ProductCartController')->only(['store', 'destroy']);
+
+Route::resource('carts', 'App\Http\Controllers\CartController')->only(['index']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
