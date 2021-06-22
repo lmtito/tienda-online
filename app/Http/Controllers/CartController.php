@@ -11,6 +11,7 @@ class CartController extends Controller
     public function __construct(CartService $cartService) {
         $this->cartService = $cartService;
     }
+
     /**
      * Display a listing of the resource.
      *
