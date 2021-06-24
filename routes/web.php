@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
-//use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +16,7 @@ use App\Http\Controllers\MainController;
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 
-Route::resource('products', 'App\Http\Controllers\ProductController');
+//Route::resource('products', 'App\Http\Controllers\ProductController');
 
 //Route::get('products', [ProductController::class, 'index'])->name('products.index');
 
@@ -33,13 +32,13 @@ Route::resource('products', 'App\Http\Controllers\ProductController');
 
 //Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-Route::resource('products.carts', 'App\Http\Controllers\ProductCartController')->only(['store', 'destroy']);
+Route::resource('products.carts', 'ProductCartController')->only(['store', 'destroy']);
 
-Route::resource('carts', 'App\Http\Controllers\CartController')->only(['index']);
+Route::resource('carts', 'CartController')->only(['index']);
 
-Route::resource('orders', 'App\Http\Controllers\OrderController')->only(['create', 'store']);
+Route::resource('orders', 'OrderController')->only(['create', 'store']);
 
-Route::resource('orders.payments', 'App\Http\Controllers\OrderPaymentController')->only(['create', 'store']);
+Route::resource('orders.payments', 'OrderPaymentController')->only(['create', 'store']);
 
 Auth::routes();
 
