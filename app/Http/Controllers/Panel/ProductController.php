@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Models\Product;
+use App\Models\PanelProduct;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+//use App\Scopes\AvailableScope;
 
 class ProductController extends Controller
 {
@@ -15,10 +16,11 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        //$products = PanelProduct::all();
+        //$products = Product::withoutGlobalScope(AvailableScope::class)->get();
         //dd($products);
         return view('products.index')->with([
-            'products' => $products,
+            'products' => PanelProduct::without('images')->get(),
         ]);
     }
 
@@ -39,7 +41,7 @@ class ProductController extends Controller
         //}
         //dd(request()->all, $request->all(), $request->validated());
         //session()->forget('error');
-        $product = Product::create($request->validated());
+        $product = PanelProduct::create($request->validated());
 
         //session()->flash('success', "The new product with id {$product->id} was created");
 
@@ -51,34 +53,34 @@ class ProductController extends Controller
             //->with(['success' => "The new product with id {$product->id} was created"]);
     }
 
-    public function show(Product $product)
+    public function show(PanelProduct $product)
     {
-        //$product = Product::findOrFail($product);
+        //$product = PanelProduct::findOrFail($product);
         //dd($product);
         return view('products.show')->with([
             'product' => $product,
         ]);
     }
 
-    public function edit(Product $product)
+    public function edit(PanelProduct $product)
     {
         return view('products.edit')->with([
-            'product' => $product,  //Product::findOrFail($product),
+            'product' => $product,  //PanelProduct::findOrFail($product),
         ]);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, PanelProduct $product)
     {
-        //$product = Product::findOrFail($product);
+        //$product = PanelProduct::findOrFail($product);
         $product->update($request->validated());
         return redirect()
             ->route('products.index')
             ->withSuccess("The product with id {$product->id} was edited");
     }
 
-    public function destroy(Product $product)
+    public function destroy(PanelProduct $product)
     {
-        //$product = Product::findOrFail($product);
+        //$product = PanelProduct::findOrFail($product);
         $product->delete();
         return redirect()
             ->route('products.index')
