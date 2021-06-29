@@ -16,6 +16,10 @@ use App\Http\Controllers\MainController;
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 
+Route::get('profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+
+Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
 //Route::resource('products', 'App\Http\Controllers\ProductController');
 
 //Route::get('products', [ProductController::class, 'index'])->name('products.index');
@@ -34,12 +38,19 @@ Route::get('/', [MainController::class, 'index'])->name('main');
 
 Route::resource('products.carts', 'ProductCartController')->only(['store', 'destroy']);
 
-Route::resource('carts', 'CartController')->only(['index']);
+Route::resource('carts', 'CartController')
+    ->only(['index'])
+    ->middleware(['verified']);
 
-Route::resource('orders', 'OrderController')->only(['create', 'store']);
+Route::resource('orders', 'OrderController')
+    ->only(['create', 'store'])
+    ->middleware(['verified']);
 
 Route::resource('orders.payments', 'OrderPaymentController')->only(['create', 'store']);
 
-Auth::routes();
+Auth::routes([
+    'verify' => true,
+    //'reset' => false,
+]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
