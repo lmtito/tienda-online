@@ -60,5 +60,8 @@ class DatabaseSeeder extends Seeder
                 $images = Image::factory(mt_rand(2, 4))->make();
                 $product->images()->saveMany($images);
             });
+
+        $this->call(PaymentPlatformsTableSeeder::class);
+        $this->call(CurrenciesTableSeeder::class);
     }
 }
